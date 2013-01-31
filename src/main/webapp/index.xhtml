@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+    <p:growl widgetVar="growlVar" showDetail="true" sticky="true" showSummary="true"/>
+    <h:form id="form">
+        <p:growl id="growl1" showDetail="true" sticky="true"/>
+        <p:growl id="growl" showDetail="true" sticky="true"/>
+        <br/>
+        <p:outputLabel for="message" value="Message:"/>
+        <p:inputText id="message" value="#{userBean.message}" required="true"/>
+        <h:outputText id="out" value="#{userBean.message}"/>
+        <br/>
+        <p:commandButton value="Save" actionListener="#{userBean.save}" update="growl"/>
+        <p:commandButton value="Send" actionListener="#{userBean.send}"/>
+    </h:form>
+    <p:socket onMessage="handleMessage" channel="/notifications"/>
+    <script type="text/javascript">
+        function handleMessage(facesmessage) {
+            facesmessage.severity = 'info';
+            growlVar.show([facesmessage]);
+        }
+    </script>
+</h:body>
+</html>
+
+
+

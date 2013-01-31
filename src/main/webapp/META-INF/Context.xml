@@ -1,0 +1,3 @@
+<Context path="/demo" debug="0" privileged="true">
+    <Loader delegate="true"/>
+</Context>
